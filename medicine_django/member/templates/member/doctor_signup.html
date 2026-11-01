@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<header>
+    <nav class="nav">
+        <div class="nav-list-1">
+            <i class="fa-regular fa-hospital"></i>
+            <p>Django Medicine</p>
+        </div>
+    </nav>
+</header>
+<body class="body-create-form">
+    <div class="form-container">
+        <h2 class="form-title">Register as a Doctor</h2>
+
+        <!-- Message box listing what is wrong with the form -->
+        <div class="container">
+            {% if form.errors %}
+                <div class="message-box">
+                    There was an error with the form
+                    {% for field in form %}
+                        {% for error in field.errors %}<p>{{ field.label }}: {{ error }}</p>{% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Registration form -->
+        <form action="{% url 'doctor_signup' %}" method="POST" class="custom-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.doctor_name.id_for_label }}">Doctor Name:</label>
+                {{ form.doctor_name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phone_no.id_for_label }}">Phone Number:</label>
+                {{ form.phone_no }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.speciality.id_for_label }}">Speciality:</label>
+                {{ form.speciality }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.hospital.id_for_label }}">Hospital:</label>
+                {{ form.hospital }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                {{ form.password2 }}
+            </div>
+            <div class="form-submit">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

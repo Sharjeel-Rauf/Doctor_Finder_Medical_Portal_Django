@@ -6,7 +6,7 @@ This README provides an overview of the structure and features of a Django medic
 
 
 ## Overview
-Developed a Django web application that connects patients with doctors. It uses a custom user model with patient and doctor roles, and gives patients one search box to find doctors by name, speciality or hospital.
+Developed a Django web application that connects patients with doctors. It uses a custom user model with patient and doctor roles, lets each sign up with their own profile, and gives patients one search box to find doctors by name, speciality or hospital.
 
 
 
@@ -18,19 +18,18 @@ Developed a Django web application that connects patients with doctors. It uses 
 
 ## Features
 * **Custom User Model**: A single `User` model with `is_patient` and `is_doctor` roles, linked to separate patient and doctor profiles.
-* **Patient Profiles**: Name, phone number, age, gender, date of birth and blood group.
-* **Doctor Profiles**: Name, phone number, speciality and hospital.
-* **Login and Logout**: Session-based authentication with success and error messages.
-* **Patient Interface**: Lists all registered doctors.
+* **Patient Sign-up**: Patients create an account with their name, phone number, age, gender, date of birth and blood group.
+* **Doctor Sign-up**: Doctors create an account with their name, phone number, speciality and hospital, and appear in the doctor list straight away.
+* **One-step Registration**: The login account and its profile are saved together in one database transaction, and the new user is logged in automatically.
+* **Login and Logout**: Session-based authentication.
+* **Patient Interface**: Lists all registered doctors with their contact details.
 * **Doctor Search**: Finds doctors by name, speciality or hospital using Django `Q` objects.
-* **Admin Panel**: Patients and doctors are managed from the Django admin.
-
-## Status
-* The patient and doctor sign-up pages are still in progress. For now, create accounts and doctor profiles from the Django admin panel.
+* **Admin Panel**: Patients and doctors can also be managed from the Django admin.
+* **Automated Tests**: Tests cover patient and doctor sign-up, login and invalid sign-ups.
 
 ## Files
 * **`medicine_django/medicine_app/`**: Custom user, patient and doctor models, the patient interface and doctor search.
-* **`medicine_django/member/`**: Login, logout and sign-up forms.
+* **`medicine_django/member/`**: Login, logout, patient and doctor sign-up forms, and their tests.
 * **`medicine_django/templates/base.html`**: Base template shared by all pages.
 
 ## How to use
@@ -54,7 +53,7 @@ Developed a Django web application that connects patients with doctors. It uses 
     cd medicine_django
     python manage.py migrate
     ```
-5. **Create an admin account**: Use it to add patients and doctors at `http://localhost:8000/admin/`.
+5. **Create an admin account (optional)**: Use it to manage patients and doctors at `http://localhost:8000/admin/`.
     ```bash
     python manage.py createsuperuser
     ```
@@ -63,10 +62,15 @@ Developed a Django web application that connects patients with doctors. It uses 
     python manage.py runserver
     ```
 7. **Access the app**: Open a web browser and navigate to `http://localhost:8000/` to interact with the app.
+8. **Run the tests**: Check the sign-up and login flows.
+    ```bash
+    python manage.py test member
+    ```
 
 ## App Usage
 
-- **Add doctors**: Sign in to the admin panel and add doctor profiles.
+- **Sign up as a doctor**: Click "Are you a Doctor?" on the home page and fill in your profile.
+- **Sign up as a patient**: Click "Are you a Patient?", then follow the patient sign-up link under the login form.
 - **Log in**: Use the login page to sign in.
 - **Browse doctors**: The patient interface lists all registered doctors.
 - **Search**: Type a name, speciality or hospital to find matching doctors.

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import UserCreationForm
 from .forms import PatientSignupForm, DoctorSignupForm
 
 def login_member(request):
@@ -21,17 +20,13 @@ def login_member(request):
 
 
 def patient_signup(request):
-    form = PatientSignupForm()
     if request.method == 'POST':
         form = PatientSignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            user = authenticate(username = username, password = password)
             login(request, user)
             messages.success(request, ("Registration is Successful"))
-            return redirect('login_member')
+            return redirect('patient_interface')
     else:
         form = PatientSignupForm()
 
@@ -45,8 +40,9 @@ def doctor_signup(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            # Additional logic for doctor signup success
-            return redirect('doctor_interface')  # Change 'doctor_interface' to your actual doctor interface URL
+            messages.success(request, ("Registration is Successful"))
+            # Doctors land on the doctor list, where their new profile now appears
+            return redirect('patient_interface')
     else:
         form = DoctorSignupForm()
 

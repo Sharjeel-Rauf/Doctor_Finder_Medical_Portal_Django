@@ -12,12 +12,18 @@
 </header>
 <body class="body-create-form">
     <div class="form-container">
-        <h2 class="form-title">Register</h2>
+        <h2 class="form-title">Register as a Patient</h2>
 
-        <!-- Message box if wrong credentials -->
+        <!-- Message box listing what is wrong with the form -->
         <div class="container">
             {% if form.errors %}
-                <div class="message-box">There was an error with the forms</div>
+                <div class="message-box">
+                    There was an error with the form
+                    {% for field in form %}
+                        {% for error in field.errors %}<p>{{ field.label }}: {{ error }}</p>{% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}<p>{{ error }}</p>{% endfor %}
+                </div>
             {% endif %}
         </div>
 
@@ -46,7 +52,7 @@
             </div>
             <div class="form-group">
                 <label for="{{ form.DOB.id_for_label }}">DOB:</label>
-                <input type="date" name="{{ form.DOB.name }}">
+                {{ form.DOB }}
             </div>
             <div class="form-group">
                 <label for="{{ form.blood_group.id_for_label }}">Blood Group:</label>
