@@ -1,0 +1,14 @@
+# Virtual environments
+venv/
+.venv/
+environment_3_8_2/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local database
+db.sqlite3
+
+# Project brief document
+/Deliverables.pdf

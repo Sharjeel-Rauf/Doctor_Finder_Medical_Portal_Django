@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<header>
+    <nav class = "nav">
+        <div class = "nav-list-1">
+            <i class="fa-regular fa-hospital"></i>
+            <p>Django Medicine</p>
+        </div>
+    </nav>
+</header>
+<body>
+<div class="main-login">
+    <div class="left-login">
+        <h1>Login<br>and Step into a world of care </h1>
+        <img src="{% static 'medicine_app/images/witch-animate.svg' %}" class="left-login-image" alt="animated-image">
+    </div>
+
+    <div class="right-login">
+        <div class="card-login">
+            <h1>LOGIN</h1>
+            <form action="{% url 'login_member' %}" method="POST">
+                {% csrf_token %}
+                <div class="textfield">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text" name="username" placeholder="username" aria-describedby="emailHelp">
+                </div>
+                <div class="textfield">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" name="password" placeholder="password">
+                </div>
+                <button class="btn-login">Login</button>
+                <div class="btn-plus">
+                    <p>Don't have an account? <a href="{% url 'patient_signup' %}" class="btn-cadastre-se"> <span class="span-cadastre-se">Sign up</span></a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+
+
+{% endblock %}

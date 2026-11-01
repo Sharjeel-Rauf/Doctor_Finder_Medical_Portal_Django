@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<header>
+    <nav class="nav">
+        <div class="nav-list-1">
+            <i class="fa-regular fa-hospital"></i>
+            <p>Django Medicine</p>
+        </div>
+    </nav>
+</header>
+<body class="body-create-form">
+    <div class="form-container">
+        <h2 class="form-title">Register</h2>
+
+        <!-- Message box if wrong credentials -->
+        <div class="container">
+            {% if form.errors %}
+                <div class="message-box">There was an error with the forms</div>
+            {% endif %}
+        </div>
+
+        <!-- Registration form -->
+        <form action="{% url 'patient_signup' %}" method="POST" class="custom-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.username.id_for_label }}">Username:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.patient_name.id_for_label }}">Patient Name:</label>
+                {{ form.patient_name }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.phone_no.id_for_label }}">Phone Number:</label>
+                {{ form.phone_no }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.age.id_for_label }}">Age:</label>
+                {{ form.age }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                {{ form.gender }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.DOB.id_for_label }}">DOB:</label>
+                <input type="date" name="{{ form.DOB.name }}">
+            </div>
+            <div class="form-group">
+                <label for="{{ form.blood_group.id_for_label }}">Blood Group:</label>
+                {{ form.blood_group }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password1.id_for_label }}">Password:</label>
+                {{ form.password1 }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+                {{ form.password2 }}
+            </div>
+            <div class="form-submit">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+
+{% endblock %}

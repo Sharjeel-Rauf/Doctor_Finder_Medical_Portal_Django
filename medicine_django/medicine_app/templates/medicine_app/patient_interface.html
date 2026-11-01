@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Naviagtion bar 1 -->
+<header>
+    <!-- parent -->
+        <nav class ="nav">
+            <!-- child 1 -->
+            <div class = "nav-list-1">
+            <i class="fa-regular fa-hospital"></i>
+            <h1>Django Medicine</h1>
+            </div>
+            <!-- child 2 -->
+            <div class = "nav-list-2">
+                <form id="searchForm" method="POST" action="{% url 'search_doctor' %}">
+                    {% csrf_token %}
+                    <input id="searchInput" type="search" placeholder="Search Member" aria-label="Search" name="searched">
+                    <button id="searchButton" type="submit">Search</button>
+                </form>
+                <a href="{% url 'logout_member' %}"> Logout </a>     
+            </div>
+        </nav>
+</header>
+
+
+{% if user.is_authenticated %}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Doctor ID</th>
+                <th>Doctor Name</th>
+                <th>Phone No</th>
+                <th>Email</th>
+                <th>Speciality</th>
+                <th>Hospital</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctor_list %}
+            <tr>
+               
+                <td>igf_00{{ doctor.id }}</td>
+                <td>{{ doctor.doctor_name }}</td>
+                <td>{{ doctor.phone_no }}</td>
+                <td>{{ doctor.email }}</td>    
+                <td>{{ doctor.speciality }}</td>
+                <td>{{ doctor.hospital }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<!-- Login button -->
+    <a href="{% url 'login_member' %}" class="login-button">Login</a>
+{% endif %}
+{% endblock %}

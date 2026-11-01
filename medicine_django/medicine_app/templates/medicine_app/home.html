@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header>
+    <nav class = "nav">
+        <div class = "nav-list-1">
+            <i class="fa-regular fa-hospital"></i>
+            <p>Django Medicine</p>
+        </div>
+    </nav>
+</header>
+<div class="body-home">
+    <div class="home-1">
+        <div>
+            <a href="{% url 'login_member' %}">
+                <button class="patient-button">Are you a Patient?</button>
+            </a>
+        </div>
+    </div>
+    <div class="home-1">
+        <button class="doctor-button">Are you a Doctor?</button>
+    </div>
+</div>
+
+{% endblock %}
